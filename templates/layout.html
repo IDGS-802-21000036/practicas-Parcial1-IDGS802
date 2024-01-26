@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>INDEX</title>
+    <meta name="description" content>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="../static/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+      
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./">IDGS802</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">
+                <i class="icon-home icon-white"></i>
+                Inicio
+              </a>
+              <a class="nav-link" href="./operaciones">
+                <i class="fa-solid fa-calculator"></i>
+                  Operaciones
+                </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+      {%block content%}
+      {%endblock%}
+      <script src="../static/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="https://kit.fontawesome.com/f04af1df8e.js" crossorigin="anonymous"></script>
+  </body>
+</html>
