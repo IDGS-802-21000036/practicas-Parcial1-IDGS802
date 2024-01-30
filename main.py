@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+import distancia_form
 
 app = Flask(__name__)
 
@@ -29,25 +30,23 @@ def calculo():
 
 
 
-@app.route("/resultado", methods=["GET", "POST"])
-def resultado():
+@app.route("/distancia", methods=['GET', 'POST'])
+def alumnos():
+    alumn_form = distancia_form.DistanceForm(request.form)
     if request.method == "POST":
-        num1 = int(request.form.get("n1"))
-        num2 = int(request.form.get("n2"))
-        return  '''
-                    <h1>La multiplicacion de: {} x {} = {}</h1>
-                '''.format(num1, num2, (num1*num2))
-    else:
-        return  '''
-                <form action="/multiplica" method="POST">
-                    <label>N1: </label>
-                    <input type="text" name="n1"/>
-                    <label>N2: </label>
-                    <input type="text" name="n2"/>
-                    <input type="submit">
-                </form>
-
-                '''
+        x1 = alumn_form.x1.data
+        x2 = alumn_form.x2.data
+        
+        y1 = alumn_form.y1.data
+        y2 = alumn_form.y2.data
+        total = ((x1-x2)**2 + (y1 - y2)**2)**0.5
+        print("x1:{}".format(x1))
+        print("x2:{}".format(x2))
+        print("y1:{}".format(y1))
+        print("y2:{}".format(y2))
+        print("Distancia:{}".format(total))
+        return render_template("formDistancia.html", form = alumn_form, total = total)
+    return render_template("formDistancia.html", form = alumn_form)
 
 if __name__ == "__main__":
     app.run(debug=True)
