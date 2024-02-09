@@ -1,0 +1,18 @@
+{% extends "layout.html"%}
+
+{%block content%}
+<h1>Datos personales</h1>
+<form action="/saludo" method="POST"">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Hola <b>{{nombre}}</b></h1>
+            <h2>Tienes {{edad}} años</h2>
+            <h3>tu signo zodiacal</h3>
+            <h3>Es {{signo}}</h3>
+            <img src="{{img}}" alt="">
+        </div>
+    </div>
+
+</form>
+
+{%endblock%}
