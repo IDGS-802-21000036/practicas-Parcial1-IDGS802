@@ -1,0 +1,37 @@
+{% extends "layout.html"%}
+
+{%block content%}
+{%import "_macros.html" as macros%}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Consultar diccionario</h1>
+        <form action="/consulta_diccionario" method="POST" novalidate>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 b-2">
+                            {{macros.input_Form(form.rdConsulta,
+                            class="form-control")}}
+                        </div>
+                        <div class="col-md-12 b-2">
+                            {{macros.input_Form(form.palabra,
+                            class="form-control")}}
+                        </div>
+                        <div
+                            class="col-md-12 d-flex align-items-center justify-content-center">
+                            <input type="submit" class="btn btn-outline-primary"
+                                name="btn1">
+                        </div>
+                        <div class="col-md-6">
+                            {%if busqueda%}
+                            <h1>Palabra: {{busqueda}}</h1>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+    {%endblock%}

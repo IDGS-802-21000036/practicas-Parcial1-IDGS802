@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
-import distancia_form
-import persona_form
+import forms
 
 rata = [1936, 1948, 1960, 1972, 1984, 1996, 2008]
 tigre = [1937, 1949, 1961, 1973, 1985, 1997, 2009]
@@ -59,7 +58,7 @@ def calculo():
   
 @app.route('/register')
 def person():
-    person_form = persona_form.PersonForm(request.form)
+    person_form = forms.PersonForm(request.form)
     return render_template("formPerson.html", form = person_form)
 
 @app.route('/saludo', methods=['POST'])
@@ -125,7 +124,7 @@ def saludo():
 
 @app.route("/distancia", methods=['GET', 'POST'])
 def alumnos():
-    alumn_form = distancia_form.DistanceForm(request.form)
+    alumn_form = forms.DistanceForm(request.form)
     if request.method == "POST":
         x1 = alumn_form.x1.data
         x2 = alumn_form.x2.data
@@ -140,6 +139,42 @@ def alumnos():
         print("Distancia:{}".format(total))
         return render_template("formDistancia.html", form = alumn_form, total = total)
     return render_template("formDistancia.html", form = alumn_form)
+
+@app.route('/diccionario', methods=['GET', 'POST'])
+def diccionario():
+    dictionary_form = forms.DictionaryForm(request.form)
+    if request.method == "POST" and dictionary_form.validate():
+        archivo_texto=open("diccionario.txt", 'a')
+        print("leyendo el archivo")
+            
+        archivo_texto.write(dictionary_form.ingles.data + ":" + dictionary_form.espaniol.data + "\n")
+
+        return render_template("formDiccionario.html", hecho = "Hecho", form = dictionary_form)
+    return render_template("formDiccionario.html", form = dictionary_form, )
+
+@app.route('/consulta_diccionario', methods=['GET', 'POST'])
+def consulta_diccionario():
+    dictionary_form = forms.ConsultaDiccionarioForm(request.form)
+    if request.method == "POST" and dictionary_form.validate():
+        archivo_texto=open("diccionario.txt", 'r')
+        consulta = request.form.get("rdConsulta")
+        print(dictionary_form.palabra.data)
+        for linea in archivo_texto.readlines():
+            print(linea.rstrip())
+            palabras = linea.rstrip().split(":")
+            print(consulta)
+            for palabra in palabras:
+                if palabra == dictionary_form.palabra.data:
+                    print("Se encontro la palabra")
+                    if consulta == "Ingles":
+                        return render_template("formConsultaDiccionario.html", form = dictionary_form, busqueda = palabras[0])
+                    
+                    elif consulta == "Espaniol":
+                        return render_template("formConsultaDiccionario.html", form = dictionary_form, busqueda = palabras[1])
+        return render_template("formConsultaDiccionario.html", form = dictionary_form, busqueda = "No se encontro la palabra")
+    return render_template("formConsultaDiccionario.html", form = dictionary_form)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
